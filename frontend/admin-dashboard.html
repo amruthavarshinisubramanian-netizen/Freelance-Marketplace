@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Analytics - FreelanceHub</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="main-nav"></div>
+
+  <div class="page-header">
+    <div class="container">
+      <div class="page-header-actions">
+        <div>
+          <h1>Platform Administration &amp; Analytics</h1>
+          <p>Real-time metrics, system volume, user accounts, and moderation controls.</p>
+        </div>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <a href="/manage-users.html" class="btn btn-outline btn-sm">👥 Manage Users</a>
+          <a href="/manage-projects.html" class="btn btn-outline btn-sm">💼 Manage Projects</a>
+          <a href="/manage-applications.html" class="btn btn-outline btn-sm">📄 Manage Applications</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Stat Metrics Grid -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-icon" style="background-color: var(--primary-light); color: var(--primary);">👥</div>
+        <div class="metric-info">
+          <h4>Total Users</h4>
+          <div class="metric-value" id="stat-total-users">0</div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon" style="background-color: #ede9fe; color: #6b21a8;">💼</div>
+        <div class="metric-info">
+          <h4>Clients</h4>
+          <div class="metric-value" id="stat-clients">0</div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon" style="background-color: #e0f2fe; color: #0284c7;">💻</div>
+        <div class="metric-info">
+          <h4>Freelancers</h4>
+          <div class="metric-value" id="stat-freelancers">0</div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon" style="background-color: var(--success-light); color: var(--success);">💰</div>
+        <div class="metric-info">
+          <h4>Project Volume</h4>
+          <div class="metric-value" id="stat-project-value">$0</div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon" style="background-color: var(--warning-light); color: var(--warning);">📁</div>
+        <div class="metric-info">
+          <h4>Total Projects</h4>
+          <div class="metric-value" id="stat-total-projects">0</div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon" style="background-color: var(--success-light); color: var(--success);">🟢</div>
+        <div class="metric-info">
+          <h4>Open Projects</h4>
+          <div class="metric-value" id="stat-open-projects">0</div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon" style="background-color: #fef3c7; color: #92400e;">📝</div>
+        <div class="metric-info">
+          <h4>Total Applications</h4>
+          <div class="metric-value" id="stat-total-apps">0</div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon" style="background-color: var(--success-light); color: var(--success);">🤝</div>
+        <div class="metric-info">
+          <h4>Accepted Bids</h4>
+          <div class="metric-value" id="stat-accepted-apps">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dual Table Layout: Recent Projects & Recent Users -->
+    <div style="display: grid; grid-template-columns: 3fr 2fr; gap: 1.5rem; margin-bottom: 4rem;">
+      <!-- Recent Projects -->
+      <div class="card" style="margin-bottom: 0;">
+        <div class="card-header">
+          <h3>Recent Project Postings</h3>
+          <a href="/manage-projects.html" class="btn btn-outline btn-sm">View All →</a>
+        </div>
+        <div class="table-container" style="border: none; box-shadow: none; margin-bottom: 0;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Client</th>
+                <th>Budget</th>
+                <th>Status</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="recent-projects-body">
+              <tr>
+                <td colspan="5" style="text-align: center; padding: 2rem;">Loading projects...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Recent Users -->
+      <div class="card" style="margin-bottom: 0;">
+        <div class="card-header">
+          <h3>Recent User Signups</h3>
+          <a href="/manage-users.html" class="btn btn-outline btn-sm">View All →</a>
+        </div>
+        <div class="table-container" style="border: none; box-shadow: none; margin-bottom: 0;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Role</th>
+                <th>Joined</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="recent-users-body">
+              <tr>
+                <td colspan="4" style="text-align: center; padding: 2rem;">Loading users...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 FreelanceHub Platform. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="/js/auth.js"></script>
+  <script src="/js/admin.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initAdminDashboard();
+    });
+  </script>
+</body>
+</html>
+

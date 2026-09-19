@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit Proposal - FreelanceHub</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="main-nav"></div>
+
+  <div class="page-header">
+    <div class="container container-narrow">
+      <div class="page-header-actions">
+        <div>
+          <h1>Submit Your Project Proposal</h1>
+          <p>Provide a competitive bid and detail how your expertise matches the client's needs.</p>
+        </div>
+        <a href="/projects.html" class="btn btn-secondary btn-sm">← Back to Projects</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container container-narrow" style="margin-bottom: 4rem;">
+    <!-- Project Summary Container -->
+    <div id="apply-project-info">
+      <div style="text-align: center; padding: 2rem;">Loading project information...</div>
+    </div>
+
+    <!-- Application Form -->
+    <div class="card">
+      <div class="card-header">
+        <h3>Your Proposal Details</h3>
+      </div>
+      <div class="card-body" style="padding: 2rem;">
+        <form id="apply-project-form">
+          <div class="form-group">
+            <label class="form-label" for="bidAmount">Your Bid Amount (USD $) *</label>
+            <input type="number" id="bidAmount" class="form-control" placeholder="e.g. 2400" min="1" step="10" required autofocus>
+            <div class="helper-text">You can bid higher, lower, or equal to the client's target budget.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="proposal">Proposal Pitch &amp; Execution Plan *</label>
+            <textarea id="proposal" class="form-textarea" rows="7" placeholder="Introduce yourself, explain your architectural approach, highlight similar projects you have built, and propose your milestone timeline..." required minlength="20"></textarea>
+            <div class="helper-text">A clear, well-written pitch substantially increases your acceptance rate.</div>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem;">
+            <a href="/projects.html" class="btn btn-outline">Cancel</a>
+            <button type="submit" class="btn btn-success btn-lg">Submit Proposal Now</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 FreelanceHub Platform. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="/js/auth.js"></script>
+  <script src="/js/freelancer.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initApplyProjectForm();
+    });
+  </script>
+</body>
+</html>
+

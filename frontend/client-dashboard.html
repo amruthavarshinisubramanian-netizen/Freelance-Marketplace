@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Dashboard - FreelanceHub</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="main-nav"></div>
+
+  <div class="page-header">
+    <div class="container">
+      <div class="page-header-actions">
+        <div>
+          <h1>Client Dashboard</h1>
+          <p>Manage your job postings, evaluate freelancer proposals, and track active contracts.</p>
+        </div>
+        <div style="display: flex; gap: 0.75rem;">
+          <a href="/create-project.html" class="btn btn-primary">+ Post New Project</a>
+          <a href="/client-applications.html" class="btn btn-outline">Review Proposals</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Stat Cards -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-icon" style="background-color: var(--primary-light); color: var(--primary);">📁</div>
+        <div class="metric-info">
+          <h4>Total Projects</h4>
+          <div class="metric-value" id="metric-total">0</div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon" style="background-color: var(--success-light); color: var(--success);">🟢</div>
+        <div class="metric-info">
+          <h4>Open Projects</h4>
+          <div class="metric-value" id="metric-open">0</div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon" style="background-color: var(--warning-light); color: var(--warning);">⚡</div>
+        <div class="metric-info">
+          <h4>In Progress</h4>
+          <div class="metric-value" id="metric-progress">0</div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon" style="background-color: #ede9fe; color: #6b21a8;">📩</div>
+        <div class="metric-info">
+          <h4>Pending Proposals</h4>
+          <div class="metric-value" id="metric-proposals">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Client Projects Table -->
+    <div class="card">
+      <div class="card-header">
+        <h2>My Posted Projects</h2>
+        <a href="/create-project.html" class="btn btn-primary btn-sm">+ Post Project</a>
+      </div>
+      <div class="table-container" style="margin-bottom: 0; border: none; box-shadow: none;">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Project Title &amp; Category</th>
+              <th>Budget</th>
+              <th>Deadline</th>
+              <th>Status</th>
+              <th>Proposals</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="client-projects-body">
+            <tr>
+              <td colspan="6" style="text-align: center; padding: 2rem;">Loading your projects...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 FreelanceHub Platform. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="/js/auth.js"></script>
+  <script src="/js/projects.js"></script>
+  <script src="/js/client.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initClientDashboard();
+    });
+  </script>
+</body>
+</html>
+

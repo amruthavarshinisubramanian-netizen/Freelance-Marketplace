@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FreelanceHub - Premier Freelance Marketplace Platform</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Dynamic Navigation Bar -->
+  <div id="main-nav"></div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <span class="hero-tagline">🚀 Connect &bull; Collaborate &bull; Deliver</span>
+      <h1>Where Top Clients Hire <br><span class="gradient-text">World-Class Freelancers</span></h1>
+      <p>A modern, secure marketplace platform for web development, UI/UX design, database engineering, and digital solutions. Post projects or land high-paying contracts with verified clients.</p>
+      <div class="hero-cta">
+        <a href="/projects.html" class="btn btn-primary btn-lg">Explore Open Projects</a>
+        <a href="/register.html" class="btn btn-outline btn-lg">Join as a Freelancer or Client</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Platform Stats Bar -->
+  <div class="container" style="margin-top: -2rem; position: relative; z-index: 10;">
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-icon" style="background-color: var(--primary-light); color: var(--primary);">💼</div>
+        <div class="metric-info">
+          <h4>Active Projects</h4>
+          <div class="metric-value" id="home-stat-projects">5+</div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon" style="background-color: var(--success-light); color: var(--success);">👥</div>
+        <div class="metric-info">
+          <h4>Verified Talent</h4>
+          <div class="metric-value" id="home-stat-freelancers">100%</div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon" style="background-color: var(--warning-light); color: var(--warning);">⚡</div>
+        <div class="metric-info">
+          <h4>Fast Proposals</h4>
+          <div class="metric-value">&lt; 24 hrs</div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon" style="background-color: #ede9fe; color: #6b21a8;">🔒</div>
+        <div class="metric-info">
+          <h4>Enterprise Security</h4>
+          <div class="metric-value">MSSQL 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How It Works Section -->
+  <section class="container" style="padding: 4rem 1.5rem;">
+    <div style="text-align: center; margin-bottom: 3rem;">
+      <h2 style="font-size: 2rem; font-weight: 800; color: var(--gray-900); margin-bottom: 0.5rem;">How FreelanceHub Works</h2>
+      <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Streamlined hiring workflow designed for clear milestones, trusted relationships, and successful delivery.</p>
+    </div>
+
+    <div class="feature-grid" style="margin: 0;">
+      <div class="feature-card">
+        <div class="feature-icon">1</div>
+        <h3>Post or Discover Gigs</h3>
+        <p>Clients post custom project specifications with clear budgets and deadlines. Freelancers discover curated projects matching their skill set.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">2</div>
+        <h3>Bid & Review Proposals</h3>
+        <p>Freelancers submit competitive bids with detailed execution plans. Clients compare proposals, evaluate skills, and choose the ideal match.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">3</div>
+        <h3>Assign & Deliver</h3>
+        <p>Upon proposal acceptance, the contract automatically transitions to active development with dedicated client-freelancer collaboration.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Projects Section -->
+  <section style="background-color: var(--gray-50); border-top: 1px solid var(--border-color); padding: 4rem 0;">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h2 style="font-size: 1.85rem; font-weight: 800; color: var(--gray-900); margin-bottom: 0.25rem;">Featured Open Projects</h2>
+          <p style="color: var(--text-muted);">Recent opportunities posted by verified clients.</p>
+        </div>
+        <a href="/projects.html" class="btn btn-outline btn-sm">View All Projects →</a>
+      </div>
+
+      <div id="featured-projects-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
+        <div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--text-muted);">
+          Loading featured opportunities...
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="/projects.html">Browse Projects</a>
+        <a href="/login.html">Sign In</a>
+        <a href="/register.html">Register</a>
+        <a href="/api/health" target="_blank">System Health</a>
+      </div>
+      <p>&copy; 2026 FreelanceHub Platform. Built with Express.js, MSSQL 2025, and Vanilla Web Technologies.</p>
+    </div>
+  </footer>
+
+  <script src="/js/auth.js"></script>
+  <script src="/js/projects.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const container = document.getElementById('featured-projects-grid');
+      try {
+        const data = await apiFetch('/projects?status=Open');
+        const projects = (data.projects || []).slice(0, 3);
+        if (projects.length > 0) {
+          container.innerHTML = projects.map(createProjectCardHtml).join('');
+        } else {
+          container.innerHTML = '<div style="grid-column: 1/-1; text-align: center;">No open projects at this time.</div>';
+        }
+      } catch (e) {
+        if (container) container.innerHTML = '<div style="grid-column: 1/-1; text-align:center; color:var(--text-muted);">Start the backend server to view live projects.</div>';
+      }
+    });
+  </script>
+</body>
+</html>
+

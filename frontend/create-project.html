@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post a Project - FreelanceHub</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="main-nav"></div>
+
+  <div class="page-header">
+    <div class="container container-narrow">
+      <div class="page-header-actions">
+        <div>
+          <h1 id="form-page-title">Post a New Project</h1>
+          <p>Describe your technical requirements and receive competitive proposals from expert freelancers.</p>
+        </div>
+        <a href="/client-dashboard.html" class="btn btn-secondary btn-sm">← Back to Dashboard</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container container-narrow" style="margin-bottom: 4rem;">
+    <div class="card">
+      <div class="card-body" style="padding: 2.5rem;">
+        <form id="project-form">
+          <div class="form-group">
+            <label class="form-label" for="title">Project Title *</label>
+            <input type="text" id="title" class="form-control" placeholder="e.g. Build Modern SaaS Dashboard in Node.js" required autofocus>
+            <div class="helper-text">Keep your title concise and descriptive.</div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+            <div class="form-group">
+              <label class="form-label" for="category">Category *</label>
+              <select id="category" class="form-select" required>
+                <option value="">Select Category...</option>
+                <option value="Web Development">Web Development</option>
+                <option value="Backend Development">Backend Development</option>
+                <option value="UI/UX Design">UI/UX Design</option>
+                <option value="Database">Database</option>
+                <option value="Design & Branding">Design & Branding</option>
+                <option value="Mobile Development">Mobile Development</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="budget">Total Budget (USD $) *</label>
+              <input type="number" id="budget" class="form-control" placeholder="2500" min="10" step="10" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+            <div class="form-group">
+              <label class="form-label" for="deadline">Target Delivery Deadline *</label>
+              <input type="date" id="deadline" class="form-control" required>
+            </div>
+
+            <div class="form-group" id="status-group" style="display: none;">
+              <label class="form-label" for="status">Project Status</label>
+              <select id="status" class="form-select">
+                <option value="Open">Open</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="requiredSkills">Required Skills &amp; Technologies (comma-separated) *</label>
+            <input type="text" id="requiredSkills" class="form-control" placeholder="e.g. Node.js, Express, SQL Server, HTML5, CSS3" required>
+            <div class="helper-text">Separate tags with commas so freelancers can easily find this project.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="description">Detailed Project Description &amp; Scope *</label>
+            <textarea id="description" class="form-textarea" rows="6" placeholder="Provide background information, expected deliverables, architecture guidelines, and milestone requirements..." required></textarea>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem;">
+            <a href="/client-dashboard.html" class="btn btn-outline">Cancel</a>
+            <button type="submit" id="submit-btn" class="btn btn-primary btn-lg">Publish Project Now</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 FreelanceHub Platform. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="/js/auth.js"></script>
+  <script src="/js/client.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initProjectForm();
+    });
+  </script>
+</body>
+</html>
+
