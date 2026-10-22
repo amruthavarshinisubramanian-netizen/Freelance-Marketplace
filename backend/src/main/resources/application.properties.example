@@ -1,0 +1,22 @@
+# ============================================================================
+# Freelance Marketplace Platform - Sample Configuration
+# Copy this file to application.properties and update with your local credentials
+# ============================================================================
+
+server.port=8080
+
+# Database Configuration (MySQL)
+spring.datasource.url=jdbc:mysql://localhost:3306/FreelanceMarketplaceDB?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+spring.datasource.username=your_mysql_username
+spring.datasource.password=your_mysql_password
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# JPA / Hibernate Configuration
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=false
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+
+# JWT Security Configuration
+jwt.secret=your_32_bytes_or_longer_secure_jwt_secret_key_here!
+jwt.expiration-ms=604800000
+

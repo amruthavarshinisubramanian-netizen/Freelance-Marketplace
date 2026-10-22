@@ -4,20 +4,41 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Environment files
+# React Build Output
+dist/
+build/
+
+# Maven Build Output
+target/
+*.class
+
+# Environment and Secret files
 .env
 .env.local
 .env.*.local
+application.properties.local
 
 # Logs
-logs
+logs/
 *.log
 
 # Operating System files
 .DS_Store
 Thumbs.db
 
-# Editor directories
+# Local Backups & Archive files
+_backup_original/
+*.zip
+*.tar.gz
+
+# Crash Dumps
+hs_err_pid*
+replay_pid*
+
+# IDE and Editor directories
 .vscode/
 .idea/
-
+*.iml
+.classpath
+.project
+.settings/

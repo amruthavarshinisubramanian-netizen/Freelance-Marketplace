@@ -1,196 +1,239 @@
-# Freelance Marketplace Platform (FreelanceHub)
+# Freelance Marketplace Platform (Spring Boot + MySQL + React.js)
 
-A complete, production-ready full-stack web application for a **Freelance Marketplace Platform** featuring three distinct user roles (Client, Freelancer, Admin), Microsoft SQL Server 2025 database integration, Express.js REST APIs, and a modern, responsive HTML5/CSS3/Vanilla JavaScript frontend served directly by Express.
+A complete, production-ready, full-stack **Freelance Marketplace Platform** featuring a **React.js Single Page Application (SPA)**, a **Java 17 & Spring Boot 3.3.x REST API backend**, and a **MySQL 8.0 database**.
+
+> [!IMPORTANT]
+> **Preserved UI Design**: The frontend has been faithfully converted from the original static pages to React components while preserving 100% of the original CSS design, color palette, fonts, spacing, layout, card structure, and badges. All existing portfolio screenshots remain completely valid and consistent.
 
 ---
 
-## Architecture Overview
+## 1. Technology Stack
 
-```
+- **Frontend**:
+  - React.js (v18)
+  - React Router DOM (v6) for client-side routing
+  - Axios for API communication with JWT interceptors
+  - Pure CSS3 design system (preserved from original `style.css`)
+  - Vite for high-speed local development and production bundling
+- **Backend**:
+  - Java 17 LTS
+  - Spring Boot 3.3.4
+  - Spring Web (RESTful APIs)
+  - Spring Data JPA (Hibernate ORM)
+  - Spring Security with Stateless JWT Filter
+  - JJWT (JSON Web Token) for authentication
+  - BCrypt password hashing
+  - Apache Maven (with included `mvnw` Maven Wrapper)
+- **Database**:
+  - MySQL 8.0
+  - Connector: `mysql-connector-j`
+
+---
+
+## 2. Project Architecture & Folder Structure
+
+```text
 FreelanceMarketplace/
-├── database/
-│   └── FreelanceMarketplaceDB.sql   # Complete SQL schema, constraints, indexes & seeds
-├── backend/
-│   ├── config/
-│   │   └── db.js                    # MSSQL connection pool (Windows & SQL Auth)
-│   ├── controllers/
-│   │   ├── authController.js        # Register, login, profile, JWT token generation
-│   │   ├── projectController.js     # Project CRUD, filtering, search, client view
-│   │   ├── applicationController.js # Proposal bidding, client accept/reject workflow
-│   │   └── adminController.js       # Platform analytics, user moderation, audit
-│   ├── middleware/
-│   │   ├── authMiddleware.js        # JWT verification and active user checks
-│   │   └── roleMiddleware.js        # Role-based authorization ('Client', 'Freelancer', 'Admin')
-│   ├── routes/
-│   │   ├── authRoutes.js            # /api/auth endpoints
-│   │   ├── projectRoutes.js         # /api/projects endpoints
-│   │   ├── applicationRoutes.js     # /api/applications endpoints
-│   │   └── adminRoutes.js           # /api/admin endpoints
-│   ├── .env.example                 # Environment template
-│   ├── .env                         # Active configuration
-│   ├── package.json                 # Dependencies & scripts
-│   └── server.js                    # Express application & static frontend server
-├── frontend/
-│   ├── css/
-│   │   └── style.css                # Pure CSS3 responsive design system
-│   ├── js/
-│   │   ├── auth.js                  # Token storage, dynamic navbar, route protection, toasts
-│   │   ├── projects.js              # Catalog browsing, search, filter, project details
-│   │   ├── client.js                # Client dashboard, post project, evaluate proposals
-│   │   ├── freelancer.js            # Freelancer dashboard, my applications, bid submission
-│   │   └── admin.js                 # Admin dashboard, user and project management
-│   ├── index.html                   # Landing page
-│   ├── login.html                   # Login page with 1-click test credentials
-│   ├── register.html                # Signup for Client or Freelancer
-│   ├── projects.html                # Public project browse catalog
-│   ├── project-details.html         # Project details & apply CTA
-│   ├── client-dashboard.html        # Client portal overview
-│   ├── create-project.html          # Post or edit project form
-│   ├── client-applications.html     # Client proposal review & accept/reject
-│   ├── freelancer-dashboard.html    # Freelancer portal overview
-│   ├── my-applications.html         # Freelancer proposal tracker
-│   ├── apply-project.html           # Freelancer submit proposal form
-│   ├── admin-dashboard.html         # Admin analytics dashboard
-│   ├── manage-users.html            # Admin user accounts moderation
-│   ├── manage-projects.html         # Admin project moderation
-│   └── manage-applications.html     # Admin proposal moderation
-├── .gitignore                       # Git ignore file
-└── README.md                        # Documentation & setup guide
+├── backend/                               # Java 17 & Spring Boot Backend
+│   ├── mvnw & mvnw.cmd                    # Maven Wrapper scripts (cross-platform)
+│   ├── pom.xml                            # Maven dependencies & build configuration
+│   └── src/
+│       ├── main/
+│       │   ├── java/com/marketplace/
+│       │   │   ├── FreelanceMarketplaceApplication.java # Spring Boot entrypoint
+│       │   │   ├── config/                # SecurityConfig, CorsConfig
+│       │   │   ├── controller/            # AuthController, ProjectController, ApplicationController, AdminController, HealthController
+│       │   │   ├── dto/                   # Request & Response Data Transfer Objects
+│       │   │   ├── entity/                # JPA Entities: User, Project, Application, ProjectAssignment, Enums
+│       │   │   ├── exception/             # GlobalExceptionHandler & custom exceptions
+│       │   │   ├── repository/            # Spring Data JPA Repositories
+│       │   │   ├── security/              # JwtTokenProvider, JwtAuthenticationFilter, UserPrincipal
+│       │   │   └── service/               # Business logic services
+│       │   └── resources/
+│       │       ├── application.properties # Active MySQL & JWT configuration
+│       │       └── application.properties.example # Sample configuration template
+│
+├── frontend/                              # React.js Single Page Application
+│   ├── index.html                         # SPA root HTML template
+│   ├── package.json                       # React, React Router, Axios dependencies
+│   ├── vite.config.js                     # Vite build & API proxy configuration
+│   ├── css/style.css                      # Preserved CSS design system
+│   └── src/
+│       ├── main.jsx                       # React DOM entrypoint
+│       ├── App.jsx                        # React Router routing & layout
+│       ├── index.css                      # Complete stylesheet
+│       ├── components/                    # Navbar, Footer, ProtectedRoute
+│       ├── context/                       # AuthContext (JWT & user state)
+│       ├── pages/                         # All 15 converted pages
+│       └── services/                      # Axios API client, toast notifications, formatters
+│
+├── database/                              # Database SQL Scripts
+│   ├── FreelanceMarketplaceDB_mysql.sql   # Complete MySQL schema & realistic seed data
+│   └── FreelanceMarketplaceDB.sql         # Original SQL Server script (preserved)
+│
+├── _backup_original/                      # Complete backup of original project
+│   ├── backend/                           # Original Node.js / Express backend
+│   └── frontend/                          # Original static HTML / JS pages
+│
+├── .env.example                           # Sample environment variable template
+├── .gitignore                             # Git ignore rules
+└── README.md                              # Project documentation
 ```
 
 ---
 
-## Technology Stack
+## 3. User Roles & Capabilities
 
-- **Frontend**: HTML5, Modern CSS3 (Custom Properties, Flexbox, CSS Grid), Vanilla JavaScript ES6+ (No React/Bootstrap/Tailwind dependencies).
-- **Backend**: Node.js, Express.js.
-- **Database**: Microsoft SQL Server 2025 / 2022 / 2019 via `mssql` and native `msnodesqlv8` driver.
-- **Security & Authentication**: JSON Web Tokens (`jsonwebtoken`), password hashing via `bcryptjs`.
-
----
-
-## User Roles & Key Features
-
-### 1. Client Role
-- Post detailed project requirements with title, category, budget, deadline, and skills.
-- Manage posted projects (view, edit, delete).
-- Review incoming proposals submitted by freelancers.
-- Accept or reject proposals. Accepting a proposal automatically updates the project to `In Progress` and creates a formal assignment.
-
-### 2. Freelancer Role
-- Browse and filter open projects by keyword, category, budget, and deadline.
-- Submit customized proposals with bid amount and pitch.
-- Track status of submitted applications (Pending, Accepted, Rejected) on the dashboard.
-
-### 3. Admin Role
-- Platform analytics dashboard (total users, active clients/freelancers, project volume, application ratios).
-- User management: search users, toggle active/inactive account status, or remove accounts.
-- Project moderation: view all platform projects and remove inappropriate content.
-- Application moderation: inspect all proposals across all projects.
+| Role | Access Level & Permissions |
+| :--- | :--- |
+| **CLIENT** | Register, Login, Post projects, Edit/delete own projects, View incoming proposals, Accept or reject freelancer proposals, Track active assignments. |
+| **FREELANCER** | Register, Login, Search & filter projects by category/budget, View project details, Submit proposals with custom bid amounts, Track proposal statuses (Pending, Accepted, Rejected). |
+| **ADMIN** | Login, View system-wide analytics, Search & moderate users (Activate / Deactivate / Delete), Review and delete inappropriate projects, Supervise all applications. |
 
 ---
 
-## Seed Test Accounts
+## 4. Prerequisites
 
-The database includes ready-to-test accounts with pre-seeded projects and applications:
-
-| Role | Email | Password | Pre-loaded Data |
-| :--- | :--- | :--- | :--- |
-| **Admin** | `admin@marketplace.com` | `Admin@123` | Full administrative access |
-| **Client** | `client@marketplace.com` | `Client@123` | Posted projects & pending proposals |
-| **Client** | `sarah.client@company.com` | `Client@123` | Database tuning project |
-| **Freelancer** | `freelancer@marketplace.com` | `Freelancer@123` | Active applications |
-| **Freelancer** | `emily.freelancer@design.com` | `Freelancer@123` | Accepted project assignment |
-| **Freelancer** | `david.code@dev.io` | `Freelancer@123` | Submitted bids |
-
-> **Tip**: The login page (`/login.html`) has 1-click test buttons that autofill credentials and sign in immediately!
+Ensure the following tools are installed on your computer:
+1. **Java JDK 17** (or newer): Run `java -version` to verify.
+2. **Node.js 18+ & npm**: Run `node -v` and `npm -v` to verify.
+3. **MySQL Server 8.0**: Installed and running on `localhost:3306`.
+4. **VS Code**: Recommended editor for local development.
 
 ---
 
-## Getting Started
+## 5. Step-by-Step Setup Guide
 
-### Prerequisites
-- Node.js (v18 or higher recommended)
-- Microsoft SQL Server (2016 or higher, Developer / Express / Standard edition)
-- SQL Server Command Line Utility (`sqlcmd`) or SQL Server Management Studio (SSMS)
+### Step 1: Initialize the MySQL Database
 
-### 1. Database Setup
-Run the SQL script using `sqlcmd` with Windows Authentication:
+1. Open your terminal, PowerShell, or MySQL Workbench.
+2. Connect to MySQL and run the initialization script located at `database/FreelanceMarketplaceDB_mysql.sql`:
+   ```powershell
+   mysql -u root -p < database/FreelanceMarketplaceDB_mysql.sql
+   ```
+   *Or open MySQL Workbench, open `database/FreelanceMarketplaceDB_mysql.sql`, and execute the script.*
+3. This creates `FreelanceMarketplaceDB` with all tables, constraints, foreign keys, indexes, and realistic seed data.
+
+### Step 2: Configure Database Password (if needed)
+
+The backend reads database credentials from environment variables with sensible defaults in `backend/src/main/resources/application.properties`:
+```properties
+spring.datasource.url=${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/FreelanceMarketplaceDB?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true}
+spring.datasource.username=${SPRING_DATASOURCE_USERNAME:root}
+spring.datasource.password=${SPRING_DATASOURCE_PASSWORD:}
+```
+You can pass your local MySQL password when running the backend:
 ```powershell
-sqlcmd -S localhost -E -i "database\FreelanceMarketplaceDB.sql"
+$env:SPRING_DATASOURCE_PASSWORD="your_mysql_password"
 ```
-*Alternatively, open `database/FreelanceMarketplaceDB.sql` in SQL Server Management Studio (SSMS) and click **Execute**.*
+Or define it in `application.properties` directly on your local machine (without committing passwords to Git).
 
-### 2. Configure Backend Environment
-Navigate to the `backend` directory and verify or customize `.env`:
+### Step 3: Run the Spring Boot Backend
+
+Open a terminal and execute:
 ```powershell
 cd backend
+$env:MAVEN_OPTS="-Xms128m -Xmx256m -XX:+UseSerialGC"
+.\mvnw spring-boot:run
 ```
-In `backend/.env`:
-```env
-PORT=5000
-NODE_ENV=development
-JWT_SECRET=freelance_marketplace_super_secret_jwt_token_key_2026!
-JWT_EXPIRES_IN=7d
+*(If Maven is installed globally on your machine, you can also run `mvn spring-boot:run`)*
 
-# Windows Integrated Authentication (Default on Windows local instances)
-DB_AUTH_TYPE=windows
-DB_SERVER=localhost
-DB_NAME=FreelanceMarketplaceDB
+The backend will start on **`http://localhost:8080`**.
+You can verify the API is running by visiting: [http://localhost:8080/api/health](http://localhost:8080/api/health)
 
-# If using SQL Server Authentication instead:
-# DB_AUTH_TYPE=sql
-# DB_USER=sa
-# DB_PASSWORD=YourPassword
-# DB_PORT=1433
-```
+### Step 4: Run the React.js Frontend
 
-### 3. Install Dependencies & Start Server
+Open a second terminal and execute:
 ```powershell
+cd frontend
 npm install
-npm start
+npm run dev
 ```
 
-Once started, open your browser at:
-- **Web Application**: [http://localhost:5000](http://localhost:5000)
-- **API Health Check**: [http://localhost:5000/api/health](http://localhost:5000/api/health)
+The React development server will start on **`http://localhost:5173`**.
+Open your browser and navigate to:
+👉 **[http://localhost:5173](http://localhost:5173)**
 
 ---
 
-## REST API Documentation
+## 6. Pre-Configured Test Accounts & Authentication
+
+* **🛡️ Development Admin**:
+  - Email: `admin@marketplace.com`
+  - Password: `Admin@123`
+  - Role: `ADMIN`
+  - A 1-click **Autofill Admin Credentials** button is provided at the bottom of the login page to fill these credentials. The user clicks **Sign In** to authenticate normally.
+* **💼 Clients & 💻 Freelancers**:
+  - Users can register directly via the **Sign Up** page choosing either the **Client** or **Freelancer** role.
+  - Existing registered users log in with their own registered email and password.
+
+---
+
+## 7. REST API Endpoints Reference
 
 ### Authentication (`/api/auth`)
-- `POST /api/auth/register` - Create Client or Freelancer account.
-- `POST /api/auth/login` - Authenticate user and receive JWT.
-- `GET /api/auth/me` - Get profile of authenticated user (`Bearer <token>`).
-- `POST /api/auth/logout` - Invalidate local session.
+- `POST /api/auth/register` - Create client or freelancer account.
+- `POST /api/auth/login` - Authenticate credentials and receive JWT.
+- `GET /api/auth/me` - Get profile of authenticated user.
+- `POST /api/auth/logout` - Invalidate client session.
 
 ### Projects (`/api/projects`)
-- `GET /api/projects` - Browse open projects with query parameters: `search`, `category`, `minBudget`, `maxBudget`, `sortBy`, `status`.
-- `GET /api/projects/:id` - Get details of a single project.
-- `GET /api/projects/client/my` - Get all projects posted by authenticated Client.
-- `POST /api/projects` - Client posts a new project.
-- `PUT /api/projects/:id` - Update project details (Client owner or Admin).
-- `DELETE /api/projects/:id` - Delete project (Client owner or Admin).
+- `GET /api/projects` - Public project search and catalog (supports `search`, `category`, `minBudget`, `maxBudget`, `status`, `sortBy`).
+- `GET /api/projects/{id}` - Single project details with client info.
+- `GET /api/projects/client/my` - Client's own posted projects with proposal counts *(Role: CLIENT)*.
+- `POST /api/projects` - Publish a new project *(Role: CLIENT)*.
+- `PUT /api/projects/{id}` - Edit project specifications *(Role: CLIENT, ADMIN)*.
+- `PATCH /api/projects/{id}/status` - Update project status *(Role: CLIENT, ADMIN)*.
+- `DELETE /api/projects/{id}` - Remove project *(Role: CLIENT, ADMIN)*.
 
-### Applications & Bids (`/api/applications`)
-- `POST /api/applications` - Freelancer submits a proposal.
-- `GET /api/applications/my` - Freelancer views all submitted applications.
-- `GET /api/applications/client` - Client views applications for their projects.
-- `PUT /api/applications/:id/status` - Client accepts or rejects proposal (`{ "status": "Accepted" | "Rejected" }`).
+### Applications & Proposals (`/api/applications`)
+- `POST /api/applications` - Submit proposal & bid amount *(Role: FREELANCER)*.
+- `GET /api/applications/my` - View all submitted applications *(Role: FREELANCER)*.
+- `GET /api/applications/client` - View received proposals for client's projects *(Role: CLIENT)*.
+- `PUT /api/applications/{id}/status` - Accept or reject proposal *(Role: CLIENT, ADMIN)*.
 
-### Admin (`/api/admin`)
-- `GET /api/admin/dashboard` - Platform statistics (users, projects, applications, volume).
-- `GET /api/admin/users` - List all users with search, role, and active status filters.
-- `PUT /api/admin/users/:id/toggle-status` - Activate or deactivate user account.
-- `DELETE /api/admin/users/:id` - Delete user account and associated records.
-- `GET /api/admin/projects` - List all projects across the platform.
-- `DELETE /api/admin/projects/:id` - Remove project.
-- `GET /api/admin/applications` - List all applications across the platform.
-- `DELETE /api/admin/applications/:id` - Remove application record.
+### Platform Administration (`/api/admin`)
+- `GET /api/admin/dashboard` - Global platform analytics & stats *(Role: ADMIN)*.
+- `GET /api/admin/users` - Search and filter all registered users *(Role: ADMIN)*.
+- `PUT /api/admin/users/{id}/toggle-status` - Activate or deactivate user *(Role: ADMIN)*.
+- `DELETE /api/admin/users/{id}` - Delete user account *(Role: ADMIN)*.
+- `GET /api/admin/projects` - Inspect all projects across the platform *(Role: ADMIN)*.
+- `DELETE /api/admin/projects/{id}` - Remove project *(Role: ADMIN)*.
+- `GET /api/admin/applications` - Review all proposals across all projects *(Role: ADMIN)*.
+- `DELETE /api/admin/applications/{id}` - Remove proposal *(Role: ADMIN)*.
 
 ---
 
-## License
-MIT License.
+## 8. Verification & Test Confirmation
 
+- **Backend Build & Tests**: Verified with Maven 3.9.15 and Java 17 LTS (All 14 unit and integration tests passed).
+- **Frontend Build**: Verified with Vite 5.4 (`npm run build` completed cleanly with 0 errors).
+- **Database Schema**: MySQL 8.0 schema validated with foreign keys, unique constraints, and seed data.
+- **Visual Parity**: Converted React pages match the exact CSS classNames, layout structure, color tokens, and responsive cards of the original design.
+
+---
+
+## 9. Cloud Deployment Guide
+
+### Option A: Frontend Deployment (Vercel / Netlify)
+1. Push this repository to GitHub.
+2. Link the repository to **Vercel** or **Netlify**.
+3. Set **Root Directory** to `frontend`.
+4. Build command: `npm run build`
+5. Output directory: `dist`
+6. Set Environment Variable: `VITE_API_URL=https://your-backend-domain.com/api` (if pointing to a remote backend).
+
+### Option B: Backend Deployment (Render / Railway / AWS)
+1. Deploy from the `backend` folder on **Render** (as a Web Service) or **Railway**.
+2. Build command: `./mvnw clean package -DskipTests`
+3. Start command: `java -jar target/freelance-marketplace-backend-1.0.0.jar`
+4. Set Environment Variables:
+   - `SPRING_DATASOURCE_URL`: `jdbc:mysql://<host>:<port>/<dbname>?useSSL=true`
+   - `SPRING_DATASOURCE_USERNAME`: `<db_user>`
+   - `SPRING_DATASOURCE_PASSWORD`: `<db_password>`
+   - `JWT_SECRET`: `<secure_random_32_char_string>`
+
+### Option C: Cloud MySQL Database (Aiven / PlanetScale / Railway)
+1. Create a MySQL 8.0 instance on **Aiven** or **Railway**.
+2. Run `database/FreelanceMarketplaceDB_mysql.sql` on the cloud MySQL database.
+3. Copy the host, port, username, and password into your backend environment variables.
